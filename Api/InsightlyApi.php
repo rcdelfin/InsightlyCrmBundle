@@ -45,6 +45,7 @@ class InsightlyApi extends CrmApi
       "FAX_NUMBER" => "string",
       "EMAIL_ADDRESS" => "string",
       "WEBSITE_URL" => "string",
+      "LINKEDIN" => "string",
       "OWNER_USER_ID" => 'integer',
       "DATE_CREATED_UTC" => "datetime",
       "DATE_UPDATED_UTC" => "datetime",
@@ -85,6 +86,14 @@ class InsightlyApi extends CrmApi
     $hashKey = $this->integration->getInsightlyApiKey();
     $insightly = new Insightly($hashKey);
     
+    $data["CUSTOMFIELDS"] = [
+      [
+        "CUSTOM_FIELD_ID" => "LEAD_FIELD_1",
+        "FIELD_VALUE" => $data['LINKEDIN']
+      ]
+    ];
+    unset($data['LINKEDIN']);
+
     return $insightly->addLead($data);
   }   
 }
